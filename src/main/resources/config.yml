@@ -1,7 +1,7 @@
 default-vaults: 1
 max-vaults: 27
 vault-size: 54
-open-delay-ticks: 4
+open-delay-ticks: 10
 command-delay-ticks: 10
 blacklist:
   - minecraft:bedrock
@@ -9,7 +9,7 @@ blacklist:
   - minecraft:barrier
 messages:
   prefix: "§3Vaults §8» §r"
-  selector-title: "Your vaults"
+  selector-title: "Your vaults - pick one"
   vault-title: "Vault #{number}"
   vault-title-other: "{player} - Vault #{number}"
   vault-entry: "§bVault #{number}"

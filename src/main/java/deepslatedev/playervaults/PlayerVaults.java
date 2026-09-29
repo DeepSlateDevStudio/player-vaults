@@ -61,9 +61,6 @@ public final class PlayerVaults extends PluginBase {
     }
 
     int allowed(Player player) {
-        if (player.isOp()) {
-            return maxVaults();
-        }
         for (int n = maxVaults(); n > 0; n--) {
             if (player.hasPermission("playervaults.amount." + n)) {
                 return n;
@@ -89,7 +86,7 @@ public final class PlayerVaults extends PluginBase {
     }
 
     private void later(Runnable task) {
-        getServer().getScheduler().scheduleDelayedTask(this, task, Math.max(1, getConfig().getInt("open-delay-ticks", 4)));
+        getServer().getScheduler().scheduleDelayedTask(this, task, Math.max(1, getConfig().getInt("open-delay-ticks", 10)));
     }
 
     public void openVault(Player viewer, String owner, int number) {
@@ -149,7 +146,7 @@ public final class PlayerVaults extends PluginBase {
 
     private void openSelector(Player player) {
         int allowed = allowed(player);
-        int shown = Math.min(27, Math.max(allowed, Math.min(maxVaults(), 9)));
+        int shown = Math.min(27, allowed);
         FakeInventory selector = new FakeInventory(FakeInventoryType.CHEST, msg("selector-title"));
         Map<Integer, Map<Integer, Item>> vaults = vaultsOf(player.getName());
         for (int i = 0; i < shown; i++) {
@@ -192,7 +189,11 @@ public final class PlayerVaults extends PluginBase {
             return true;
         }
         if (args.length == 0) {
-            fromChat(() -> openSelector(player), player);
+            if (allowed(player) <= 1) {
+                fromChat(() -> openVault(player, player.getName(), 1), player);
+            } else {
+                fromChat(() -> openSelector(player), player);
+            }
             return true;
         }
         int number;
