@@ -4,7 +4,6 @@ import org.powernukkitx.Player;
 import org.powernukkitx.command.Command;
 import org.powernukkitx.command.CommandSender;
 import org.powernukkitx.inventory.fake.FakeInventory;
-import org.powernukkitx.inventory.fake.FakeInventoryType;
 import org.powernukkitx.item.Item;
 import org.powernukkitx.plugin.PluginBase;
 import org.powernukkitx.utils.TextFormat;
@@ -95,7 +94,7 @@ public final class PlayerVaults extends PluginBase {
         if (inventory == null) {
             boolean self = owner.equalsIgnoreCase(viewer.getName());
             String title = self ? msg("vault-title", "number", String.valueOf(number)) : msg("vault-title-other", "player", owner, "number", String.valueOf(number));
-            inventory = new FakeInventory(vaultSize() == 27 ? FakeInventoryType.CHEST : FakeInventoryType.DOUBLE_CHEST, title);
+            inventory = new DeepChest(title, vaultSize() != 27);
             Map<Integer, Item> contents = vaultsOf(owner).getOrDefault(number, new HashMap<>());
             for (Map.Entry<Integer, Item> slot : contents.entrySet()) {
                 if (slot.getKey() < inventory.getSize()) {
@@ -147,7 +146,7 @@ public final class PlayerVaults extends PluginBase {
     private void openSelector(Player player) {
         int allowed = allowed(player);
         int shown = Math.min(27, allowed);
-        FakeInventory selector = new FakeInventory(FakeInventoryType.CHEST, msg("selector-title"));
+        FakeInventory selector = new DeepChest(msg("selector-title"), false);
         Map<Integer, Map<Integer, Item>> vaults = vaultsOf(player.getName());
         for (int i = 0; i < shown; i++) {
             int number = i + 1;
