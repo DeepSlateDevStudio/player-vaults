@@ -1,0 +1,23 @@
+name: PlayerVaults
+main: deepslatedev.playervaults.PlayerVaults
+version: "1.0.0"
+api: ["3.0.0"]
+author: Hollowseam
+description: Personal vaults for every player, sized by permission
+website: https://github.com/DeepSlateDevStudio/player-vaults
+commands:
+  pv:
+    description: Open your personal vaults
+    usage: "/pv [number] [player]"
+    aliases: [vault, vaults, playervault]
+    permission: playervaults.use
+permissions:
+  playervaults.use:
+    description: Open your own vaults
+    default: true
+  playervaults.admin:
+    description: Open and edit the vaults of other players
+    default: op
+  playervaults.bypass.blacklist:
+    description: Store blacklisted items
+    default: op

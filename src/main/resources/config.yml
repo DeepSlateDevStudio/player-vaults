@@ -1,0 +1,24 @@
+default-vaults: 1
+max-vaults: 27
+vault-size: 54
+open-delay-ticks: 4
+command-delay-ticks: 10
+blacklist:
+  - minecraft:bedrock
+  - minecraft:command_block
+  - minecraft:barrier
+messages:
+  prefix: "§3Vaults §8» §r"
+  selector-title: "Your vaults"
+  vault-title: "Vault #{number}"
+  vault-title-other: "{player} - Vault #{number}"
+  vault-entry: "§bVault #{number}"
+  vault-lore: "§7{count} stacks stored"
+  vault-empty: "§7Empty"
+  vault-locked: "§8Vault #{number}"
+  vault-locked-lore: "§cLocked"
+  no-access: "§cYou only have access to {amount} vault(s)."
+  invalid-number: "§cVault number must be between 1 and {max}."
+  blacklisted: "§cThis item can't be stored in a vault."
+  players-only: "§cOnly players can open vaults."
+  no-data: "§c{player} has no vaults yet."
